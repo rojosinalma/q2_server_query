@@ -7,6 +7,7 @@ module Q2ServerQuery
 
     def initialize(hostname, port)
       @socket   = UDPSocket.new
+      @timeout  = 5
       @hostname = hostname
       @port     = port
       @header   = "\xff\xff\xff\xffstatus\x00"
@@ -70,7 +71,7 @@ module Q2ServerQuery
         @raw_response = nil
         socket.send(header, 0, hostname, port)
 
-        Timeout.timeout(5) do
+        Timeout.timeout(@timeout) do
           @raw_response = socket.recvfrom(1000)
         end
 
