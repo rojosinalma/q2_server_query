@@ -9,7 +9,7 @@ module Q2ServerQuery
       @socket   = UDPSocket.new
       @timeout  = 5
       @hostname = hostname
-      @port     = port
+      @port     = port.to_i
       @header   = "\xff\xff\xff\xffstatus\x00"
     end
 
