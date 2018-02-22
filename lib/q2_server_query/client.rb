@@ -10,7 +10,7 @@ module Q2ServerQuery
       @timeout  = 5
       @hostname = hostname
       @port     = port.to_i
-      @header   = "\xff\xff\xff\xffstatus\x00"
+      @msg      = "\xff\xff\xff\xffstatus\x00"
     end
 
     def status
@@ -18,9 +18,9 @@ module Q2ServerQuery
       return if response.nil?
 
       @parsed_response = response.first.split("\\")
-      header           = @parsed_response.shift[4..8]
+      response_header  = @parsed_response.shift[4..8]
 
-      return if header != "print"
+      return if response_header != "print"
 
       build_status(@parsed_response)
     end
@@ -69,7 +69,7 @@ module Q2ServerQuery
     def status_query
       begin
         @raw_response = nil
-        socket.send(header, 0, hostname, port)
+        socket.send(@msg, 0, hostname, port)
 
         Timeout.timeout(@timeout) do
           @raw_response = socket.recvfrom(1000)
