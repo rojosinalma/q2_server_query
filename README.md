@@ -23,8 +23,8 @@ Or install it yourself as:
 ## Usage
 
 ```ruby
-client = Q2ServerQuery::Client.new
-client.status("your.serverhostname.com (or IP)", server_port) # the port has to be an integer)
+client = Q2ServerQuery::Client.new("your.serverhostname.com (or IP)", server_port)
+client.status
 
 # Using AQ2 Server as example.
 => {
@@ -69,9 +69,6 @@ client.status("your.serverhostname.com (or IP)", server_port) # the port has to 
     {"frags"=>"99", "ping"=>"99", "name"=>"another_player"}
  ]
 }
-
-# Then you can call another server by changing the host/port parameters.
-client.status("another_host". another_port)
 ```
 
 ## Development
