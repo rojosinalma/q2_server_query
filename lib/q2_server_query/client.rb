@@ -3,13 +3,14 @@ require 'timeout'
 
 module Q2ServerQuery
   class Client
-    attr_reader :socket, :raw_response, :parsed_response, :hostname, :port, :players_list
+    attr_accessor :address, :port
+    attr_reader   :socket, :raw_response, :parsed_response, :players_list
 
-    def initialize(hostname, port)
+    def initialize(address, port)
       @socket   = UDPSocket.new
-      @timeout  = 5
-      @hostname = hostname
-      @port     = port.to_i
+      @timeout  = 10
+      @address  = address
+      @port     = port
       @msg      = "\xff\xff\xff\xffstatus\x00"
     end
 
@@ -69,15 +70,15 @@ module Q2ServerQuery
     def status_query
       begin
         @raw_response = nil
-        socket.send(@msg, 0, hostname, port)
+        socket.send(@msg, 0, address, port)
 
         Timeout.timeout(@timeout) do
           @raw_response = socket.recvfrom(1000)
         end
 
         socket.close
-      rescue Timeout::Error
-        puts "-- Server #{hostname}:#{port} timed out!"
+      rescue => e
+        puts "-- Error with server #{host}:#{port}. Reason: #{e}"
       end
 
       @raw_response
