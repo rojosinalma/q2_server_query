@@ -8,7 +8,7 @@ module Q2ServerQuery
 
     def initialize(address, port)
       @socket   = UDPSocket.new
-      @timeout  = 10
+      @timeout  = 2
       @address  = address
       @port     = port
       @msg      = "\xff\xff\xff\xffstatus\x00"
