@@ -16,7 +16,7 @@ module Q2ServerQuery
 
     def status
       response = status_query
-      return if response.nil?
+      return nil if response.nil?
 
       @parsed_response = response.first.split("\\")
       response_header  = @parsed_response.shift[4..8]
@@ -78,10 +78,10 @@ module Q2ServerQuery
 
         socket.close
       rescue => e
-        puts "-- Error with server #{host}:#{port}. Reason: #{e}"
+        puts "-- Error with server #{address}:#{port}. Reason: #{e}"
+      ensure
+        return @raw_response
       end
-
-      @raw_response
     end
   end
 end
