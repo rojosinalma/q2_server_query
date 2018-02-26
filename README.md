@@ -1,5 +1,8 @@
 # Q2ServerQuery
 
+[![Maintainability](https://api.codeclimate.com/v1/badges/0bc20571f72a305dff67/maintainability)](https://codeclimate.com/github/elfenars/q2_server_query/maintainability)
+[![Dependency Status](https://gemnasium.com/badges/github.com/elfenars/q2_server_query.svg)](https://gemnasium.com/github.com/elfenars/q2_server_query)
+
 I got tired of finding workarounds to query Q2 Servers by using JS libraries or other language implementations, so I created this simple gem.
 
 **NOTE: This works ONLY with Quake 2 servers, it's not adapted for other protocols, but it might work with game servers that use the same protocol**
